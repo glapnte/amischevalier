@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: "Labo de Merlin API"
+  description: "Accéder au contenu du labo de Merlin"
+servers:
+  - url: "http://merlin.name.kaa"
+paths:
+  /:
+    get:
+      summary: "Cherche une affaire"
+      description: "Cherche une affaire dans le labo de Merlin en fonction de son nom et du nombre de lettres de son nom."
+      operationId: cherche
+      parameters:
+        - in: query
+          name: item
+          schema:
+            type: string
+          required: true
+          description: "L'affaire à chercher, comme une patte de corbeau, ou un flag. Note: n'importe qui ne peut pas demander n'importe quoi ; il faut être légitime."
+        - in: query
+          name: len
+          schema:
+            type: integer
+          required: true
+          description: "Le nombre de lettres, par exemple 5 pour patte mais seulement 4 pour flag."
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: string
+                    description: "Nom de l'affaire cherché."
+                  val:
+                    type: string
+                    description: "Le détail de l'affaire."
+        '404':
+          description: "L'affaire n'est pas trouvée."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '400':
+          description: "Requête invalide"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
