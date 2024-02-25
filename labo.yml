@@ -26,6 +26,19 @@ paths:
           required: true
           description: "Le nombre de lettres, par exemple 5 pour patte mais seulement 4 pour flag."
       responses:
+       '401':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: string
+                    description: "Nom de l'affaire cherché."
+                  val:
+                    type: string
+                    description: "Le détail de l'affaire."
         '200':
           description: OK
           content:
